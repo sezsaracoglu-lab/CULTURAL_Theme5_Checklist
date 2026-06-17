@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cultural Psychology — Theme 5 Visual Study Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f1ea; --panel:#fbfaf6; --panel2:#eeebe2; --line:#dcd7c9;
+  --ink:#2c2c30; --mut:#7a7666;
+  --navy:#37425b; --slate:#5f7185; --slate-soft:#8b96a6;
+  --gold:#a98a55; --gold-soft:#c4ad7e;
+  --soft:#ecefe9; --soft2:#eceef2;
+  --green:#5d7d57; --green-bg:#e9efe4; --red:#a85a4b; --red-bg:#f1e7e2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;overflow:hidden}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#d2ccbd;border-radius:8px}
+::-webkit-scrollbar-track{background:transparent}
+.app{display:flex;height:100vh}
+.sidebar{width:238px;flex:0 0 238px;background:linear-gradient(180deg,#eef0ea,#eae7de);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:24px 16px}
+.brand{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:25px;line-height:1.06;color:var(--navy)}
+.brand small{display:block;font-family:'DM Sans';font-weight:500;font-size:10.5px;letter-spacing:2px;color:var(--mut);margin-top:7px;text-transform:uppercase}
+.nav{margin-top:30px;display:flex;flex-direction:column;gap:6px}
+.nav button{display:flex;align-items:center;gap:12px;width:100%;background:transparent;border:none;color:var(--mut);font-family:'DM Sans';font-size:15px;font-weight:500;padding:12px 14px;border-radius:9px;cursor:pointer;text-align:left;border-left:3px solid transparent;transition:.18s}
+.nav button .ic{font-size:16px;width:18px;text-align:center}
+.nav button:hover{background:#e6e3d8;color:var(--ink)}
+.nav button.active{background:#e4e6df;color:var(--navy);border-left:3px solid var(--slate)}
+.side-foot{margin-top:auto;font-size:11.5px;color:#928d7c;line-height:1.6;border-top:1px solid var(--line);padding-top:14px}
+.side-foot b{color:var(--gold)}
+.main{flex:1;overflow-y:auto;position:relative}
+.view{display:none;padding:34px 42px 70px;max-width:1180px;margin:0 auto;animation:fade .35s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600}
+h1.title{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--navy);line-height:1.05;margin:6px 0 4px}
+.lead{color:var(--mut);font-size:15.5px;max-width:780px;line-height:1.6;margin-top:8px}
+.rule{height:1px;background:linear-gradient(90deg,var(--slate-soft),transparent);margin:22px 0 26px;border:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.ocard{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:17px;cursor:pointer;transition:.18s;position:relative;overflow:hidden}
+.ocard:hover{border-color:var(--slate);transform:translateY(-3px);box-shadow:0 12px 28px -16px rgba(55,66,91,.5)}
+.ocard .nimg{height:96px;border-radius:9px;background:#f4f5f1;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:13px;overflow:hidden}
+.ocard .nimg svg{width:100%;height:100%}
+.ocard .nnum{font-family:'Cormorant Garamond';font-size:13px;color:var(--gold);font-weight:600;letter-spacing:.5px}
+.ocard h3{font-family:'Cormorant Garamond';font-size:20px;font-weight:600;color:var(--navy);line-height:1.13;margin:3px 0 6px}
+.ocard p{font-size:12.5px;color:var(--mut);line-height:1.5}
+.ocard .chip{position:absolute;top:13px;right:13px;font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--slate);background:#eceef1;border:1px solid var(--line);padding:3px 8px;border-radius:20px}
+.sec-label{font-family:'Cormorant Garamond';font-size:23px;color:var(--navy);font-weight:600;margin:30px 0 14px;display:flex;align-items:center;gap:12px}
+.sec-label::after{content:"";flex:1;height:1px;background:var(--line)}
+.lesson-top{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+.lesson-counter{font-size:13px;color:var(--gold);font-weight:600;letter-spacing:.5px}
+.navbtns{display:flex;gap:10px}
+.navbtns button{background:var(--panel);border:1px solid var(--line);color:var(--ink);font-family:'DM Sans';font-size:13.5px;font-weight:600;padding:9px 16px;border-radius:9px;cursor:pointer;transition:.16s}
+.navbtns button:hover:not(:disabled){border-color:var(--slate);color:var(--slate)}
+.navbtns button:disabled{opacity:.35;cursor:not-allowed}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 14px;margin-bottom:6px}
+.chips .lchip{flex:0 0 auto;background:var(--panel);border:1px solid var(--line);color:var(--mut);font-size:12px;font-weight:600;padding:7px 12px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:.15s}
+.chips .lchip:hover{color:var(--ink)}
+.chips .lchip.active{background:#e6e8e2;border-color:var(--slate);color:var(--navy)}
+.stage{display:grid;grid-template-columns:62% 38%;gap:22px;align-items:stretch}
+.diagram-wrap{background:linear-gradient(160deg,#eef1ec,#eef0f3);border:1px solid var(--line);border-radius:15px;padding:16px;display:flex;flex-direction:column}
+.diagram-wrap .dtitle{font-family:'Cormorant Garamond';font-size:19px;color:var(--navy);font-weight:600;margin:2px 4px 8px;display:flex;align-items:center;gap:8px}
+.diagram-wrap svg{width:100%;height:auto;flex:1}
+.side{display:flex;flex-direction:column;gap:16px}
+.bullets{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:20px}
+.bullets h4{font-family:'Cormorant Garamond';font-size:19px;color:var(--navy);font-weight:600;margin-bottom:12px}
+.bullets ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.bullets li{display:flex;gap:11px;font-size:14px;line-height:1.5;color:#45433c}
+.bullets li .dot{flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:#e7e9e3;border:1px solid var(--slate-soft);color:var(--slate);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.bullets li b{color:var(--navy)}
+.hook{background:#f4efe4;border:1px solid var(--gold-soft);border-radius:13px;padding:17px 18px}
+.hook .ht{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;display:flex;align-items:center;gap:7px}
+.hook p{margin-top:9px;font-family:'Cormorant Garamond';font-size:18px;font-style:italic;line-height:1.4;color:var(--ink)}
+.fc-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.fc-bar .filters{display:flex;gap:7px;flex-wrap:wrap}
+.fc-bar .filters button{background:var(--panel);border:1px solid var(--line);color:var(--mut);font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:20px;cursor:pointer;transition:.15s}
+.fc-bar .filters button.active{background:#e6e8e2;border-color:var(--slate);color:var(--navy)}
+.fc-bar .tools{margin-left:auto;display:flex;gap:8px}
+.fc-bar .tools button{background:var(--slate);border:none;color:#fff;font-size:13px;font-weight:600;padding:9px 16px;border-radius:9px;cursor:pointer}
+.fc-bar .tools button.ghost{background:var(--panel);color:var(--ink);border:1px solid var(--line)}
+.fc-count{font-size:12.5px;color:var(--mut);margin-bottom:14px}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:16px}
+.flip{perspective:1400px;height:190px;cursor:pointer}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
+.flip.flipped .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:13px;border:1px solid var(--line);padding:18px;display:flex;flex-direction:column;justify-content:center}
+.face.front{background:var(--panel)}
+.face.back{background:#f3f4f1;transform:rotateY(180deg);border-color:var(--slate-soft)}
+.face .ftag{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px}
+.face.front .q{font-family:'Cormorant Garamond';font-size:21px;font-weight:600;line-height:1.2;color:var(--navy)}
+.face.back .a{font-size:13.5px;line-height:1.55;color:#403e37}
+.face.back .a b{color:var(--navy)}
+.face .hint{position:absolute;bottom:12px;right:16px;font-size:10.5px;color:#a39e8e}
+.mcq-head{display:flex;align-items:center;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+.score{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font-size:13.5px;font-weight:600;color:var(--ink)}
+.score b{color:var(--slate);font-family:'Cormorant Garamond';font-size:18px}
+.mcq-head .tools button{background:var(--panel);border:1px solid var(--line);color:var(--ink);font-size:13px;font-weight:600;padding:9px 15px;border-radius:9px;cursor:pointer}
+.q-card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:22px;margin-bottom:18px}
+.q-card .qh{display:flex;gap:12px;margin-bottom:15px}
+.q-card .qn{flex:0 0 auto;font-family:'Cormorant Garamond';font-size:15px;font-weight:700;color:#fff;background:var(--slate);width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.q-card .qt{font-size:16px;font-weight:600;line-height:1.4;color:var(--navy);padding-top:3px}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;gap:12px;align-items:flex-start;background:#f6f6f1;border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;font-size:14px;line-height:1.4;color:#45433c;transition:.14s}
+.opt:hover{border-color:var(--slate-soft)}
+.opt .ol{flex:0 0 auto;width:22px;height:22px;border-radius:6px;border:1px solid var(--slate-soft);color:var(--slate);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.opt.correct{background:var(--green-bg);border-color:var(--green);color:#2f4329}
+.opt.correct .ol{background:var(--green);border-color:var(--green);color:#fff}
+.opt.wrong{background:var(--red-bg);border-color:var(--red);color:#5a2a20}
+.opt.wrong .ol{background:var(--red);border-color:var(--red);color:#fff}
+.opt.locked{cursor:default}
+.opt.locked:hover{border-color:var(--line)}
+.explain{margin-top:13px;border-left:3px solid var(--slate-soft);background:#eef0f1;border-radius:0 9px 9px 0;padding:12px 15px;font-size:13.5px;line-height:1.55;color:#474539;display:none}
+.explain.show{display:block;animation:fade .3s}
+.explain b{color:var(--navy)}
+.explain .verdict{font-weight:700}
+.verdict.ok{color:var(--green)}.verdict.no{color:var(--red)}
+@media(max-width:880px){.sidebar{display:none}.stage{grid-template-columns:1fr}.view{padding:24px 18px 60px}h1.title{font-size:34px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Cultural Psychology<small>Theme 5 · Mental Health Across Cultures</small></div>
+    <nav class="nav" id="nav">
+      <button data-view="overview" class="active"><span class="ic">▦</span> Overview</button>
+      <button data-view="lessons"><span class="ic">❧</span> Lessons</button>
+      <button data-view="flashcards"><span class="ic">⚎</span> Flashcards</button>
+      <button data-view="mcq"><span class="ic">✓</span> MCQ</button>
+    </nav>
+    <div class="side-foot">Built for <b>Sezen</b><br>Erasmus University Rotterdam<br>Heine Ch.14 · Helman · Jurado · Chu · Alegria</div>
+  </aside>
+  <main class="main">
+    <section id="overview" class="view active"></section>
+    <section id="lessons" class="view"></section>
+    <section id="flashcards" class="view"></section>
+    <section id="mcq" class="view"></section>
+  </main>
+</div>
+<script>
+const C={navy:'#37425b',slate:'#5f7185',slateSoft:'#9aa3b2',gold:'#a98a55',ink:'#2c2c30',mut:'#7a7666',
+  line:'#cdc7b7',panel:'#ffffff',soft:'#eef1ec',soft2:'#eceef2',green:'#5d7d57',red:'#a85a4b'};
+function svg(inner,vb){return '<svg viewBox="'+(vb||'0 0 840 470')+'" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans, sans-serif">'+
+  '<defs><marker id="arr" markerWidth="11" markerHeight="11" refX="8" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8 Z" fill="'+C.slate+'"/></marker>'+
+  '<marker id="arrg" markerWidth="11" markerHeight="11" refX="8" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8 Z" fill="'+C.green+'"/></marker>'+
+  '<marker id="arrr" markerWidth="11" markerHeight="11" refX="8" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8 Z" fill="'+C.red+'"/></marker>'+
+  '<marker id="arrgo" markerWidth="11" markerHeight="11" refX="8" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8 Z" fill="'+C.gold+'"/></marker></defs>'+inner+'</svg>';}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function T(x,y,s,o){o=o||{};return '<text x="'+x+'" y="'+y+'" fill="'+(o.fill||C.ink)+'" font-size="'+(o.size||15)+'" font-family="'+(o.font||'DM Sans, sans-serif')+'" text-anchor="'+(o.anchor||'start')+'"'+(o.weight?' font-weight="'+o.weight+'"':'')+(o.style?' font-style="'+o.style+'"':'')+(o.ls?' letter-spacing="'+o.ls+'"':'')+'>'+esc(s)+'</text>';}
+function R(x,y,w,h,o){o=o||{};return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="'+(o.rx==null?11:o.rx)+'" fill="'+(o.fill||C.panel)+'" stroke="'+(o.stroke||C.slateSoft)+'" stroke-width="'+(o.sw||1.4)+'"'+(o.dash?' stroke-dasharray="'+o.dash+'"':'')+(o.op?' opacity="'+o.op+'"':'')+'/>';}
+function LN(x1,y1,x2,y2,o){o=o||{};return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+(o.stroke||C.slate)+'" stroke-width="'+(o.sw||1.5)+'"'+(o.dash?' stroke-dasharray="'+o.dash+'"':'')+(o.marker?' marker-end="url(#'+o.marker+')"':'')+'/>';}
+function CIR(cx,cy,r,o){o=o||{};return '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="'+(o.fill||'none')+'" stroke="'+(o.stroke||C.slateSoft)+'" stroke-width="'+(o.sw||1.4)+'"'+(o.dash?' stroke-dasharray="'+o.dash+'"':'')+(o.op?' opacity="'+o.op+'"':'')+'/>';}
+function PATH(d,o){o=o||{};return '<path d="'+d+'" fill="'+(o.fill||'none')+'" stroke="'+(o.stroke||C.slate)+'" stroke-width="'+(o.sw||1.5)+'"'+(o.dash?' stroke-dasharray="'+o.dash+'"':'')+(o.marker?' marker-end="url(#'+o.marker+')"':'')+(o.op?' opacity="'+o.op+'"':'')+'/>';}
+function boxC(x,y,w,h,lines,o){o=o||{};var s=R(x,y,w,h,o);var n=lines.length;var lh=o.lh||17;var cy=y+h/2-(n-1)*lh/2+5;lines.forEach(function(ln){s+=T(x+w/2,cy,ln.t,{anchor:'middle',size:ln.size||14,fill:ln.fill||C.ink,weight:ln.weight,style:ln.style,font:ln.font});cy+=lh;});return s;}
+function pill(x,y,w,h,txt,o){o=o||{};return R(x,y,w,h,{rx:h/2,fill:o.fill||'#eceef1',stroke:o.stroke||C.slateSoft,sw:o.sw})+T(x+w/2,y+h/2+5,txt,{anchor:'middle',size:o.size||13,fill:o.tfill||C.navy,weight:o.weight||600});}
+const lessons=[];
+function addLesson(o){lessons.push(o);}
+
+/* L1 — Keisuke & the big question */
+addLesson({num:1,topic:'Heine Ch.14',title:'Keisuke & the Big Question',
+svg:(function(){var g='';
+g+=T(420,40,'Does culture shape suffering?',{anchor:'middle',size:14,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+g+=R(300,66,240,70,{stroke:C.navy,fill:'#eef0ea'});g+=T(420,98,'HIKIKOMORI',{anchor:'middle',size:15,fill:C.navy,weight:700});g+=T(420,118,'\u201Cpull inward\u201D \u2014 social withdrawal',{anchor:'middle',size:10.5,fill:C.mut});
+g+=PATH('M420,136 L420,168',{marker:'arr'});
+g+=R(250,170,340,52,{stroke:C.slate,fill:'#fff'});g+=T(420,192,'voluntary isolation \u2265 6 months,',{anchor:'middle',size:11.5,fill:C.ink});g+=T(420,210,'no school/job \u2022 ~1% of Japanese \u2022 mostly boys',{anchor:'middle',size:11,fill:C.mut});
+g+=T(225,252,'Why mostly Japanese? 3 reasons',{anchor:'middle',size:12,fill:C.navy,weight:700});
+g+=T(120,278,'1.  hypothesised causes less present elsewhere',{size:11.5,fill:C.ink});
+g+=T(120,300,'2.  parents react differently (don\u2019t \u2018break the door\u2019)',{size:11.5,fill:C.ink});
+g+=T(120,322,'3.  symptoms fit NO single DSM-5 category',{size:11.5,fill:C.ink});
+g+=R(95,346,700,72,{stroke:C.gold,dash:'5 4',fill:'#f7f1e3'});
+g+=T(120,372,'Sociocultural drivers (since 1980s):',{size:11.5,weight:700,fill:C.navy});
+g+=T(120,394,'valuing work less \u2022 overprotective parenting \u2022 weaker interdependence \u2022 shrunken job market;',{size:11,fill:C.ink});
+g+=T(120,412,'most common in eldest sons (pressure to carry the family name).',{size:11,fill:C.mut});
+return svg(g);})(),
+bullets:[
+['1','<b>Keisuke</b> shut himself in the kitchen for years \u2014 a case of <b>hikikomori</b> (social withdrawal \u2265 6 months).'],
+['2','It affects ~1% of Japanese, mostly adolescent boys (often after bullying).'],
+['3','It appears largely <b>unique to Japan</b>: causes, parental reactions, and DSM-fit all differ.'],
+['4','Its symptoms don\u2019t map onto a single DSM-5 diagnosis.'],
+['5','The opening lesson: <b>culture helps shape psychopathology</b>, not just surface customs.']
+],
+hook:'A disorder this common in Japan yet almost unknown elsewhere is the chapter\u2019s proof that culture writes part of the script of mental illness.'});
+
+/* L2 — defining disorder & cultural variability */
+addLesson({num:2,topic:'Heine Ch.14',title:'Defining Disorder & Cultural Variability',
+svg:(function(){var g='';
+g+=T(420,38,'What counts as a \u201Cdisorder\u201D?',{anchor:'middle',size:14,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+g+=boxC(150,62,250,56,[{t:'usual rule: RARE',size:12,fill:C.navy,weight:700},{t:'+ causes IMPAIRMENT',size:11,fill:C.ink}],{stroke:C.slate});
+g+=boxC(450,62,250,56,[{t:'but exceptions abound',size:12,fill:C.navy,weight:700},{t:'(frat-party drinking; Glenn Gould)',size:10.5,fill:C.mut}],{stroke:C.line});
+g+=R(95,140,700,86,{stroke:C.gold,dash:'5 4',fill:'#f7f1e3'});
+g+=T(120,166,'Dhat syndrome (South Asia):',{size:12,weight:700,fill:C.navy});
+g+=T(310,166,'young men\u2019s morbid anxiety about \u2018leaking\u2019 semen (a vital essence).',{size:11.5,fill:C.ink});
+g+=T(120,190,'Without the shared cultural belief, dhat is meaningless to a Westerner \u2014 they wouldn\u2019t',{size:11.5,fill:C.ink});
+g+=T(120,210,'experience it as a disorder at all. Meaning, not just biology, defines the condition.',{size:11.5,fill:C.mut});
+g+=T(420,254,'The reverse warning',{anchor:'middle',size:12.5,fill:C.navy,weight:700});
+g+=boxC(120,272,260,70,[{t:'Psychiatry built in the WEST',size:11.5,fill:C.ink},{t:'\u2192 its disorders (depression,',size:10.5,fill:C.mut},{t:'anxiety, schizophrenia) = the \u2018norm\u2019',size:10.5,fill:C.mut}],{stroke:C.slate});
+g+=LN(382,307,440,307,{marker:'arrr'});
+g+=boxC(442,272,260,70,[{t:'risk: judge local distress',size:11.5,fill:C.red,weight:700},{t:'by how well it fits',size:10.5,fill:C.ink},{t:'Western boxes',size:10.5,fill:C.ink}],{stroke:C.red});
+g+=T(420,372,'Some Western categories may be universal; others are culturally specific. Normal varies, so abnormal varies.',{anchor:'middle',size:11,fill:C.gold,style:'italic'});
+return svg(g);})(),
+bullets:[
+['1','Disorders are usually defined as behaviour that is <b>rare and impairing</b> \u2014 but with many exceptions.'],
+['2','It gets harder when a behaviour is a problem in one culture but not another.'],
+['3','<b>Dhat syndrome</b>: semen-loss anxiety that only \u201Cexists\u201D given the South Asian belief about semen as vitality.'],
+['4','Because psychiatry is <b>Western</b>, its categories are wrongly treated as universal.'],
+['5','<b>Cultural variability</b>: if normal functioning varies, so does the line into \u201Cdisorder.\u201D']
+],
+hook:'You can only \u2018catch\u2019 dhat if your culture believes semen is precious. The diagnosis needs the belief \u2014 so don\u2019t judge every culture\u2019s pain with a Western ruler.'});
+
+/* L3 — culture-bound syndromes */
+addLesson({num:3,topic:'Heine Ch.14',title:'Culture-Bound Syndromes',
+svg:(function(){var g='';
+g+=T(420,34,'\u201CCultural concepts of distress\u201D (DSM-5)',{anchor:'middle',size:13,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+var s=[['Eating disorders','Western-influenced','bulimia = clear culture-bound; anorexia more mixed'],
+['Koro','South/East Asia','fear genitals are shrinking into the body'],
+['Ataques de nervios','Latino (Puerto Rico)','convulsions, outbursts after family stress'],
+['Amok','SE Asia','sudden violent outburst \u2192 exhaustion/amnesia'],
+['Hysteria','19th-c. Europe','fainting, paralysis; faded as a category'],
+['Susto / latah / others','Various','\u2018soul loss\u2019, startle states, frigophobia, kufungisisa']];
+s.forEach(function(d,i){var y=58+i*60;g+=R(60,y,230,50,{stroke:C.slate});g+=T(74,y+22,d[0],{size:12,fill:C.navy,weight:700});g+=T(74,y+40,d[1],{size:10,fill:C.mut});
+g+=LN(292,y+25,328,y+25,{marker:'arr'});g+=T(340,y+29,d[2],{size:10.8,fill:C.ink});});
+g+=T(420,438,'Occur mainly where the cultural meaning exists \u2014 absent or rare elsewhere.',{anchor:'middle',size:11,fill:C.gold,style:'italic'});
+return svg(g);})(),
+bullets:[
+['1','A <b>culture-bound syndrome</b> is shaped so strongly by cultural meaning that it occurs mainly in certain cultures.'],
+['2','<b>Bulimia</b> is a clear culture-bound syndrome of Western-influenced cultures; <b>anorexia</b> is more mixed (possible existential universal).'],
+['3','<b>Koro</b> (genital-shrinking fear), <b>ataques de nervios</b> (Latino), <b>amok</b> (SE Asia) are classic examples.'],
+['4','<b>Hysteria</b> shows syndromes can also mark historical periods, not just places.'],
+['5','Applying Western diagnostic frames to these can <b>miss what is really happening</b>.']
+],
+hook:'These syndromes are like local dialects of distress \u2014 fluent only where the culture supplies the grammar of meaning.'});
+
+/* L4 — universal conditions */
+addLesson({num:4,topic:'Heine Ch.14',title:'Universal Conditions (Same Illness, Different Mask)',
+svg:(function(){var g='';
+g+=T(420,34,'Universal, yet expressed differently',{anchor:'middle',size:13,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+var d=[['Depression','found everywhere','China: somatized (body); West: psychologized (mood)'],
+['Social anxiety','universal concern','E. Asia reports MORE but diagnosed LESS; Japan\u2019s TKS = fear of offending OTHERS'],
+['Schizophrenia','most universal; ~1% genetic','subtypes vary (paranoid UK / catatonic India); often BETTER course in less-industrial societies'],
+['Suicide','tendencies universal','rates & motives vary hugely (Japan honour/seppuku; First Nations identity loss)']];
+d.forEach(function(x,i){var y=58+i*92;g+=R(60,y,200,80,{stroke:C.gold});g+=T(160,y+34,x[0],{anchor:'middle',size:13,fill:C.navy,weight:700});g+=T(160,y+56,x[1],{anchor:'middle',size:9.8,fill:C.mut});
+g+=LN(262,y+40,300,y+40,{marker:'arrgo'});
+g+=R(305,y+8,485,64,{stroke:C.line,fill:'#f6f6f1'});g+=T(320,y+34,'cultural variation:',{size:10,fill:C.slate,weight:700});g+=T(320,y+54,x[2],{size:10.8,fill:C.ink});});
+return svg(g);})(),
+bullets:[
+['1','<b>Universal conditions</b> appear across cultures \u2014 highlighting biology \u2014 but vary in expression.'],
+['2','<b>Depression</b>: somatized (physical) in China vs psychologized (mood) in the West; depressed mood may not be core for Chinese.'],
+['3','<b>Social anxiety</b>: East Asians report more yet are diagnosed less; Japan\u2019s <b>taijin kyoufushou</b> fears offending others.'],
+['4','<b>Schizophrenia</b> is the most cross-culturally similar; subtypes and course still vary (often better outcomes in less-industrial societies).'],
+['5','<b>Suicide</b> is universal but rates and motives differ enormously (e.g., honour-linked seppuku in Japan).']
+],
+hook:'Depression, schizophrenia and suicide are global songs \u2014 but each culture sings them in a different key, with different lyrics and a different audience.'});
+
+/* L5 — treating mental illness */
+addLesson({num:5,topic:'Heine Ch.14',title:'Treating Mental Illness Cross-Culturally',
+svg:(function(){var g='';
+g+=R(60,58,330,150,{stroke:C.slate});
+g+=T(225,84,'WESTERN psychotherapy',{anchor:'middle',size:12.5,fill:C.navy,weight:700});
+g+=T(80,108,'psychoanalysis \u2192 client-centred \u2192 CBT',{size:10.8,fill:C.ink});
+g+=T(80,132,'assumes: seek help, look inward,',{size:10.8,fill:C.mut});
+g+=T(80,150,'disclose private feelings to a stranger',{size:10.8,fill:C.mut});
+g+=T(80,178,'\u2717 clashes with stigma, group-self,',{size:10.8,fill:C.red});
+g+=T(80,194,'\u2018don\u2019t dwell on feelings\u2019',{size:10.8,fill:C.red});
+g+=R(440,58,330,150,{stroke:C.gold});
+g+=T(605,84,'INDIGENOUS / ALTERNATIVE',{anchor:'middle',size:12.5,fill:C.navy,weight:700});
+g+=T(460,108,'across 16 societies: FAMILY +',{size:10.8,fill:C.ink});
+g+=T(460,126,'SPIRITUALISM/RELIGION (Yoruba)',{size:10.8,fill:C.mut});
+g+=T(460,150,'Japan: Morita (accept symptoms),',{size:10.8,fill:C.ink});
+g+=T(460,168,'Naikan (gratitude for others)',{size:10.8,fill:C.mut});
+g+=T(460,194,'\u2192 match care to the culture',{size:10.8,fill:C.green});
+g+=R(95,228,700,80,{stroke:C.line});
+g+=T(120,254,'Watters, Crazy Like Us:',{size:12,weight:700,fill:C.navy});
+g+=T(280,254,'exporting Western categories can SPREAD conditions',{size:11.5,fill:C.ink});
+g+=T(120,278,'(anorexia in Hong Kong; PTSD after the Sri Lanka tsunami) \u2014 each culture has a \u2018symptom pool.\u2019',{size:11.5,fill:C.mut});
+g+=R(95,328,700,90,{stroke:C.gold,dash:'5 4',fill:'#f7f1e3'});
+g+=T(120,354,'Multicultural therapy settings:',{size:12,weight:700,fill:C.navy});
+g+=T(120,378,'ethnic MATCHING helps only modestly \u2192 what matters is CULTURAL COMPETENCE',{size:11.5,fill:C.ink});
+g+=T(120,398,'(self-awareness + knowledge of the client\u2019s culture + culturally sensitive skill).',{size:11.5,fill:C.mut});
+return svg(g);})(),
+bullets:[
+['1','Western \u201Ctalking therapy\u201D assumes disclosure to a stranger \u2014 which clashes with many non-Western beliefs (stigma, the group-self).'],
+['2','Social support differs: East Asians use explicit help less and benefit from <b>implicit</b> support.'],
+['3','<b>Indigenous methods</b> centre on family and spirituality (Yoruba); Japan\u2019s <b>Morita</b> & <b>Naikan</b> therapies.'],
+['4','Watters: exporting Western categories can <b>spread</b> disorders (the \u201Csymptom pool\u201D).'],
+['5','In multicultural settings, ethnic <b>matching</b> helps modestly \u2014 <b>cultural competence</b> matters more.']
+],
+hook:'There is no culture-free couch. Good therapy fits the client\u2019s culture \u2014 and a therapist who truly \u2018gets\u2019 the culture beats one who merely shares it.'});
+
+/* L6 — migration benefits vs risks */
+addLesson({num:6,topic:'Helman 2007',title:'Migration: Benefits vs. Health Risks',
+svg:(function(){var g='';
+g+=T(420,40,'Migration cuts both ways',{anchor:'middle',size:14,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+g+=R(70,70,330,170,{stroke:C.green,fill:'#eaf0e6'});
+g+=T(235,98,'\u2713 BENEFITS',{anchor:'middle',size:13,fill:C.green,weight:700});
+g+=T(90,124,'\u2022 opportunity: education, healthcare',{size:11,fill:C.ink});
+g+=T(90,146,'\u2022 remittances (\u201Cmigrodollars\u201D)',{size:11,fill:C.ink});
+g+=T(90,168,'\u2022 new ideas, freedom, autonomy',{size:11,fill:C.ink});
+g+=T(90,190,'\u2022 stronger family bonds',{size:11,fill:C.ink});
+g+=T(90,212,'\u2022 safety (for refugees)',{size:11,fill:C.ink});
+g+=R(440,70,330,170,{stroke:C.red,fill:'#f5ece8'});
+g+=T(605,98,'\u2717 HEALTH RISKS',{anchor:'middle',size:13,fill:C.red,weight:700});
+g+=T(460,124,'\u2022 loss of identity, community, roots',{size:11,fill:C.ink});
+g+=T(460,146,'\u2022 disrupted family & networks',{size:11,fill:C.ink});
+g+=T(460,168,'\u2022 \u2191 diabetes, heart disease, HIV/STDs, TB',{size:11,fill:C.ink});
+g+=T(460,190,'\u2022 \u2191 mental illness, addiction, suicide',{size:11,fill:C.ink});
+g+=T(460,212,'\u2022 marital breakdown, domestic violence',{size:11,fill:C.ink});
+g+=R(95,266,700,86,{stroke:C.gold,dash:'5 4',fill:'#f7f1e3'});
+g+=T(120,294,'Migration as a \u2018psychosocial transition\u2019',{size:12,weight:700,fill:C.navy});
+g+=T(120,318,'akin to BEREAVEMENT: a loss of the familiar \u2018assumptive world\u2019 \u2014',{size:11.5,fill:C.ink});
+g+=T(120,338,'hence CULTURAL BEREAVEMENT (grief for homeland, people, customs).',{size:11.5,fill:C.mut});
+g+=T(420,386,'Migration is often disorienting and traumatic, even when it improves life materially.',{anchor:'middle',size:11,fill:C.gold,style:'italic'});
+return svg(g);})(),
+bullets:[
+['1','<b>Benefits</b>: opportunity (education, healthcare), <b>remittances</b>, new freedoms, stronger bonds, safety for refugees.'],
+['2','<b>Health risks</b>: lost identity/community, disrupted networks, more physical disease.'],
+['3','Higher rates of <b>mental illness, addiction, suicide</b> and family breakdown.'],
+['4','Migration is a disorienting, often <b>traumatic</b> experience.'],
+['5','It is a \u2018psychosocial transition\u2019 like bereavement \u2014 <b>cultural bereavement</b>.']
+],
+hook:'Migration can lift a family\u2019s fortunes and wound its mind at the same time \u2014 a kind of grief for the world left behind.'});
+
+/* L7 — mental illness among migrants */
+addLesson({num:7,topic:'Helman 2007',title:'Mental Illness Among Migrants',
+svg:(function(){var g='';
+g+=T(420,34,'Higher risk \u2014 from many causes at once',{anchor:'middle',size:13,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+g+=boxC(140,58,240,52,[{t:'PRE-MIGRATION',size:11.5,fill:C.navy,weight:700},{t:'class, trauma, resilience, prior health',size:9.8,fill:C.mut}],{stroke:C.slate});
+g+=boxC(300,118,240,52,[{t:'THE PROCESS',size:11.5,fill:C.navy,weight:700},{t:'stress; language difficulties',size:9.8,fill:C.mut}],{stroke:C.slate});
+g+=boxC(460,178,240,52,[{t:'POST-MIGRATION',size:11.5,fill:C.navy,weight:700},{t:'discrimination, unemployment, status loss',size:9.8,fill:C.mut}],{stroke:C.slate});
+g+=LN(300,98,300,118,{marker:'arr'});g+=LN(460,158,460,178,{marker:'arr'});
+g+=R(95,250,700,76,{stroke:C.line});
+g+=T(120,275,'Specific groups differ:',{size:11.5,weight:700,fill:C.navy});
+g+=T(255,275,'add up each group\u2019s negative factors (no single explanation).',{size:11,fill:C.ink});
+g+=T(120,298,'e.g. Manchester study: migrants \u2248 TWICE the first-admission rate; schizophrenia with',{size:11,fill:C.ink});
+g+=T(120,316,'persecutory delusions common; Polish refugees protected by strong national cohesion.',{size:11,fill:C.mut});
+g+=R(95,338,700,80,{stroke:C.gold,dash:'5 4',fill:'#f7f1e3'});
+g+=T(120,364,'Manifestations:',{size:11.5,weight:700,fill:C.navy});
+g+=T(225,364,'often SOMATIZATION (bodily symptoms), persecutory delusions,',{size:11,fill:C.ink});
+g+=T(120,386,'or withdrawn \u2018numb\u2019 distress \u2014 culture-specific presentations of the same underlying pain.',{size:11,fill:C.mut});
+g+=T(120,408,'Data are hard to interpret unless you control for age, class, occupation, ethnicity.',{size:10.5,fill:C.gold,style:'italic'});
+return svg(g);})(),
+bullets:[
+['1','Migrants often show <b>higher mental-illness risk</b> \u2014 sometimes above both host and origin populations.'],
+['2','Causes are <b>complex and multifactorial</b>; control for age, class, occupation, ethnicity.'],
+['3','Factors span <b>pre-migration</b>, the stressful <b>process</b> (language!), and <b>post-migration</b> acculturation (discrimination, status loss).'],
+['4','Rates differ by <b>group</b> \u2014 add up each group\u2019s negative factors; cohesion protects (e.g., Polish refugees).'],
+['5','Manifestations are often <b>somatic</b>, persecutory, or \u2018numb\u2019 \u2014 culture-specific presentations.']
+],
+hook:'Migrant mental illness is rarely one cause \u2014 it\u2019s a stack of risks (before, during, after) that you total up group by group.'});
+
+/* L8 — family inversions & refugees */
+addLesson({num:8,topic:'Helman 2007',title:'Family Role Inversions & Refugee Health',
+svg:(function(){var g='';
+g+=T(225,40,'Three role INVERSIONS',{anchor:'middle',size:13,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+var inv=[['Generational','kids master language/culture \u2192 interpret for parents, gain power'],
+['Gender-role','women gain independence / become breadwinner \u2192 resentment, conflict'],
+['Space','\u2018there\u2019 (Old Country) feels more real than \u2018here\u2019 \u2014 hard for adapting kids']];
+inv.forEach(function(d,i){var y=64+i*82;g+=R(55,y,340,68,{stroke:C.gold});g+=T(72,y+26,d[0],{size:12,fill:C.navy,weight:700});g+=T(72,y+46,d[1].slice(0,40),{size:9.8,fill:C.mut});if(d[1].length>40)g+=T(72,y+62,d[1].slice(40),{size:9.8,fill:C.mut});});
+g+=LN(420,70,420,300,{stroke:C.line,sw:1,dash:'3 5'});
+g+=T(620,40,'REFUGEE HEALTH',{anchor:'middle',size:13,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+g+=R(450,60,330,140,{stroke:C.red,fill:'#f5ece8'});
+g+=T(615,86,'a special, worse case',{anchor:'middle',size:11.5,fill:C.red,weight:700});
+g+=T(468,110,'\u2022 no chance to prepare; fled violence',{size:10.5,fill:C.ink});
+g+=T(468,130,'\u2022 family separation',{size:10.5,fill:C.ink});
+g+=T(468,150,'\u2022 physical: malnutrition, TB, infections',{size:10.5,fill:C.ink});
+g+=T(468,170,'\u2022 mental: anxiety, depression, PTSD',{size:10.5,fill:C.ink});
+g+=T(468,190,'\u2022 + cultural bereavement, long-term',{size:10.5,fill:C.ink});
+g+=T(615,224,'UK study: most have a QoL-affecting',{anchor:'middle',size:10,fill:C.mut});
+g+=T(615,240,'physical problem; \u2154 anxiety/depression',{anchor:'middle',size:10,fill:C.mut});
+g+=R(95,318,700,66,{stroke:C.line});
+g+=T(120,344,'Inversions decrease the migrant\u2019s sense of identity and family cohesion,',{size:11.5,fill:C.ink});
+g+=T(120,366,'feeding \u2018culture shock\u2019 and \u2018culturogenic stress\u2019 \u2014 and refugees face all of this with no preparation.',{size:11,fill:C.mut});
+return svg(g);})(),
+bullets:[
+['1','Migration can strengthen or fracture a family \u2014 via three <b>role inversions</b>.'],
+['2','<b>Generational</b>: children interpret for parents, reversing authority.'],
+['3','<b>Gender-role</b>: women may become breadwinners \u2192 resentment; <b>Space</b>: \u2018there\u2019 feels more real than \u2018here.\u2019'],
+['4','<b>Refugees</b> are worse off: no preparation, trauma, PTSD, plus physical illness (malnutrition, TB).'],
+['5','One UK study: most refugees had a quality-of-life-affecting physical problem; two-thirds had anxiety/depression.']
+],
+hook:'Migration can turn the family upside-down \u2014 children leading parents, wives out-earning husbands \u2014 and refugees endure all of it with no time to brace.'});
+
+/* L9 — causation, variation, management */
+addLesson({num:9,topic:'Helman 2007',title:'Causation, Variation & Management',
+svg:(function(){var g='';
+g+=T(420,36,'Why higher rates \u2014 and what helps',{anchor:'middle',size:13,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+g+=R(60,58,350,96,{stroke:C.slate});
+g+=T(235,82,'SELECTION hypothesis',{anchor:'middle',size:12,fill:C.navy,weight:700});
+g+=T(76,104,'vulnerable / restless people are',{size:10.8,fill:C.ink});
+g+=T(76,122,'more likely to migrate in the first place',{size:10.8,fill:C.ink});
+g+=T(76,144,'(some had illness before arrival)',{size:10,fill:C.mut});
+g+=R(430,58,350,96,{stroke:C.slate});
+g+=T(605,82,'STRESS hypothesis',{anchor:'middle',size:12,fill:C.navy,weight:700});
+g+=T(446,104,'the migration process itself creates',{size:10.8,fill:C.ink});
+g+=T(446,122,'stress \u2192 precipitates illness',{size:10.8,fill:C.ink});
+g+=T(446,144,'(+ host attitudes: \u2018host vs migrant\u2019)',{size:10,fill:C.mut});
+g+=T(420,176,'usually BOTH (plus personality/resilience)',{anchor:'middle',size:11,fill:C.gold,style:'italic'});
+g+=R(60,196,350,90,{stroke:C.line});
+g+=T(235,220,'VARIATION across groups',{anchor:'middle',size:11.5,fill:C.navy,weight:700});
+g+=T(76,242,'lower risk: education, portable skills,',{size:10.5,fill:C.ink});
+g+=T(76,260,'resources, contacts, coherent worldview',{size:10.5,fill:C.ink});
+g+=T(76,280,'(higher morbidity can last 2\u20133 generations)',{size:10,fill:C.mut});
+g+=R(430,196,350,90,{stroke:C.green});
+g+=T(605,220,'MANAGEMENT',{anchor:'middle',size:11.5,fill:C.green,weight:700});
+g+=T(446,242,'culturally appropriate care; traditional',{size:10.5,fill:C.ink});
+g+=T(446,260,'healers; self-help communities (enclaves,',{size:10.5,fill:C.ink});
+g+=T(446,280,'food, worship, media, mutual support)',{size:10.5,fill:C.ink});
+g+=R(95,302,700,80,{stroke:C.gold,dash:'5 4',fill:'#f7f1e3'});
+g+=T(120,328,'Western \u2018talking therapy\u2019 may misfit group-based clients (disclosure to a stranger, individual focus).',{size:11,fill:C.ink});
+g+=T(120,350,'Better: culturally sensitive psychiatry + traditional healers; recognise labelling (\u2018mad\u2019 vs \u2018bad\u2019) skews stats.',{size:11,fill:C.ink});
+g+=T(120,372,'Migrants\u2019 own communities (a \u2018Little Italy\u2019) buffer cultural bereavement.',{size:11,fill:C.mut});
+return svg(g);})(),
+bullets:[
+['1','<b>Selection</b> hypothesis: vulnerable people are more likely to migrate (some ill before arrival).'],
+['2','<b>Stress</b> hypothesis: migration itself precipitates illness; usually <b>both</b> operate, plus resilience.'],
+['3','<b>Variation</b>: lower risk with education, portable skills, resources, contacts and a coherent worldview.'],
+['4','Higher morbidity can persist <b>2\u20133 generations</b>.'],
+['5','<b>Management</b>: culturally appropriate care, traditional healers, and migrants\u2019 own self-help communities.']
+],
+hook:'Two engines drive migrant mental illness \u2014 who migrates (selection) and what migration does to them (stress) \u2014 and the cure includes the community a \u2018Little Italy\u2019 provides.'});
+
+/* L10 — Jurado two hypotheses */
+addLesson({num:10,topic:'Jurado 2017',title:'Two Hypotheses & Common Mental Disorders',
+svg:(function(){var g='';
+g+=R(80,56,680,52,{stroke:C.line,fill:'#eef0ea'});
+g+=T(420,78,'Systematic review: factors behind CMD in migrants',{anchor:'middle',size:12.5,fill:C.navy,weight:700});
+g+=T(420,98,'CMD = depression \u2022 anxiety \u2022 panic \u2022 OCD \u2022 PTSD \u2022 social anxiety (NICE)',{anchor:'middle',size:10.5,fill:C.mut});
+g+=R(70,135,330,150,{stroke:C.green,fill:'#eaf0e6'});
+g+=T(235,162,'HEALTHY-IMMIGRANT',{anchor:'middle',size:12.5,fill:C.green,weight:700});
+g+=T(235,186,'migrants start HEALTHIER',{anchor:'middle',size:11.5,fill:C.ink});
+g+=T(235,206,'than the host population',{anchor:'middle',size:11.5,fill:C.ink});
+g+=T(235,232,'why? SELF-SELECTION',{anchor:'middle',size:11,fill:C.mut});
+g+=T(235,250,'(only the healthier migrate)',{anchor:'middle',size:10.5,fill:C.mut});
+g+=T(235,272,'mainly US / Canada data',{anchor:'middle',size:10,fill:C.slate});
+g+=R(440,135,330,150,{stroke:C.red,fill:'#f5ece8'});
+g+=T(605,162,'MIGRATION-MORBIDITY',{anchor:'middle',size:12.5,fill:C.red,weight:700});
+g+=T(605,186,'migration = a STRESSOR',{anchor:'middle',size:11.5,fill:C.ink});
+g+=T(605,206,'\u2192 worse mental health',{anchor:'middle',size:11.5,fill:C.ink});
+g+=T(605,232,'than natives',{anchor:'middle',size:11,fill:C.mut});
+g+=T(605,258,'mainly Europe / Israel /',{anchor:'middle',size:10,fill:C.slate});
+g+=T(605,274,'China / Australia data',{anchor:'middle',size:10,fill:C.slate});
+g+=R(95,305,700,78,{stroke:C.gold,dash:'5 4',fill:'#f7f1e3'});
+g+=T(120,331,'Jurado\u2019s key point:',{size:12,weight:700,fill:C.navy});
+g+=T(250,331,'the two hypotheses are NOT mutually exclusive \u2014 both can be true.',{size:11.5,fill:C.ink});
+g+=T(120,355,'Which one holds depends on who migrates, from where, to where, and for how long \u2014',{size:11.5,fill:C.ink});
+g+=T(120,375,'so you must consider the baseline CMD rate in the country of origin.',{size:11.5,fill:C.mut});
+return svg(g);})(),
+bullets:[
+['1','A <b>systematic review</b> of factors behind common mental disorders (CMD) in migrants.'],
+['2','<b>CMD</b> = depression, anxiety, panic, OCD, PTSD, social anxiety (NICE).'],
+['3','<b>Healthy-immigrant</b>: migrants start healthier (self-selection) \u2014 mainly US/Canada data.'],
+['4','<b>Migration-morbidity</b>: migration is a stressor \u2192 worse mental health \u2014 mainly European data.'],
+['5','They are <b>not mutually exclusive</b>; the country-of-origin baseline decides which holds.']
+],
+hook:'Are migrants healthier (they self-selected) or sicker (migration is stressful)? Jurado says: yes \u2014 both, depending on who, where and how long.'});
+
+/* L11 — Jurado three factor domains */
+addLesson({num:11,topic:'Jurado 2017',title:'Three Factor Domains (Risk vs. Protective)',
+svg:(function(){var g='';
+g+=T(420,34,'What raises or lowers CMD risk in migrants',{anchor:'middle',size:13,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+var dom=[['INDIVIDUAL','female; very young/old; unmarried; low education/SES; region of origin','optimism; sense of control; resilience'],
+['MIGRATION PROCESS','pre-migration trauma; FORCED/unplanned migration; low acculturation','voluntary, planned migration; language; family reunification'],
+['HOST ENVIRONMENT','perceived DISCRIMINATION; unemployment; poor work conditions','social support; familism; cohesion; employment']];
+dom.forEach(function(d,i){var y=58+i*108;
+g+=R(60,y,180,92,{stroke:C.slate,fill:'#eef0f3'});g+=T(150,y+50,d[0],{anchor:'middle',size:12,fill:C.navy,weight:700});
+g+=R(252,y,290,92,{stroke:C.red,fill:'#f8efec'});g+=T(266,y+22,'RISK \u2191',{size:10.5,fill:C.red,weight:700});g+=T(266,y+44,d[1].slice(0,38),{size:9.8,fill:C.ink});if(d[1].length>38)g+=T(266,y+62,d[1].slice(38),{size:9.8,fill:C.ink});
+g+=R(554,y,236,92,{stroke:C.green,fill:'#eef3ea'});g+=T(568,y+22,'PROTECTIVE \u2193',{size:10.5,fill:C.green,weight:700});g+=T(568,y+44,d[2].slice(0,30),{size:9.8,fill:C.ink});if(d[2].length>30)g+=T(568,y+62,d[2].slice(30),{size:9.8,fill:C.ink});});
+g+=T(420,398,'Conclusion: migrants resemble non-migrants on most factors \u2014 but the worst harms (discrimination, joblessness) are POLICY-modifiable.',{anchor:'middle',size:10.5,fill:C.gold,style:'italic'});
+return svg(g);})(),
+bullets:[
+['1','<b>Individual</b>: risk \u2014 female, very young/old, unmarried, low education/SES, region of origin; protective \u2014 optimism, control, resilience.'],
+['2','<b>Migration process</b>: risk \u2014 pre-migration trauma, forced/unplanned migration, low acculturation; protective \u2014 voluntary planned migration, language, family reunification.'],
+['3','<b>Host environment</b>: risk \u2014 discrimination, unemployment, poor work; protective \u2014 social support, familism, cohesion, employment.'],
+['4','Migrants resemble non-migrants on most factors \u2014 migration <b>adds</b> region, circumstances, acculturation, discrimination.'],
+['5','The biggest harms are <b>modifiable by policy</b> \u2014 a hopeful, practical conclusion.']
+],
+hook:'Three buckets: who you are, how you migrated, and what greets you. The cruellest factors \u2014 discrimination and joblessness \u2014 are exactly the ones policy can fix.'});
+
+/* L12 — Chu aim & engagement */
+addLesson({num:12,topic:'Chu 2023',title:'Treatment Engagement (REACH)',
+svg:(function(){var g='';
+g+=T(420,40,'Why do marginalised youth disengage?',{anchor:'middle',size:13.5,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+g+=R(95,66,700,58,{stroke:C.red,dash:'5 4',fill:'#f5ece8'});
+g+=T(120,92,'The problem:',{size:12,weight:700,fill:C.red});
+g+=T(230,92,'50\u201370% of youths drop out early;',{size:11.5,fill:C.ink});
+g+=T(120,112,'Black & Latinx youths attend ~HALF as many visits as White youths.',{size:11.5,fill:C.ink});
+g+=T(420,150,'Engagement is multidimensional \u2014 the REACH framework',{anchor:'middle',size:12,fill:C.navy,weight:700});
+var r=[['R','Relationship','therapeutic alliance'],['E','Expectancy','beliefs about outcomes'],['A','Attendance','ability to attend'],['C','Clarity','understanding goals'],['H','Homework','in/out-of-session work']];
+r.forEach(function(d,i){var x=60+i*150;g+=R(x,176,138,90,{stroke:C.slate});g+=CIR(x+30,206,20,{stroke:C.gold});g+=T(x+30,213,d[0],{anchor:'middle',size:18,fill:C.gold,weight:700,font:'Cormorant Garamond, serif'});g+=T(x+58,202,d[1],{size:10.5,fill:C.navy,weight:700});g+=T(x+12,246,d[2],{size:9.8,fill:C.mut});});
+g+=R(95,290,700,92,{stroke:C.line});
+g+=T(120,316,'Engagement = a connection to care: social (relationship) + cognitive (expectancy,',{size:11.5,fill:C.ink});
+g+=T(120,336,'clarity) + behavioural (attendance, homework).',{size:11.5,fill:C.ink});
+g+=T(120,362,'Measured ~4 weeks in \u2014 engagement problems appear BEFORE attendance problems.',{size:11.5,fill:C.mut});
+return svg(g);})(),
+bullets:[
+['1','Half to two-thirds of youths drop out of mental health services early; minority youth attend far fewer visits.'],
+['2','<b>Treatment engagement</b> is a multidimensional connection to care.'],
+['3','The <b>REACH</b> framework: Relationship, Expectancy, Attendance, Clarity, Homework.'],
+['4','It spans social, cognitive and behavioural dimensions.'],
+['5','Engagement problems show up <b>early</b> (before attendance), so it was measured ~4 weeks in.']
+],
+hook:'Engagement isn\u2019t just showing up \u2014 it\u2019s the bond, the belief, and the buy-in (REACH) \u2014 and it cracks early, so catch it early.'});
+
+/* L13 — Chu racial matching vs cultural understanding */
+addLesson({num:13,topic:'Chu 2023',title:'Racial Matching vs. Cultural Understanding',
+svg:(function(){var g='';
+g+=T(420,34,'What actually predicts engagement?',{anchor:'middle',size:13,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+g+=T(70,66,'1,158 youths + 126 therapists \u2022 school clinics (LA & South Carolina) \u2022 regression',{size:10.5,fill:C.mut});
+// zero baseline bars
+var zx=120;g+=LN(zx,250,zx,90,{stroke:C.slateSoft,sw:1.2});g+=LN(zx,250,770,250,{stroke:C.slateSoft,sw:1.2});
+g+=T(zx-8,250,'0',{size:10,fill:C.mut,anchor:'end'});g+=T(zx-8,100,'.5',{size:9,fill:C.mut,anchor:'end'});
+var bars=[['Youth race',0.005,C.slate],['Racial matching',0.009,C.slate],['Cultural understanding',0.36,C.green]];
+bars.forEach(function(b,i){var x=zx+60+i*210;var h=b[1]*320;g+=R(x,250-h,120,h,{rx:5,stroke:b[2],fill:i===2?'#eef3ea':'#eef0f3'});g+=T(x+60,268,b[0],{anchor:'middle',size:10.5,fill:C.navy,weight:600});g+=T(x+60,244-h,'\u03B7\u00B2\u209A\u2248'+(b[1]<.01?'.00':'.36'),{anchor:'middle',size:10,fill:b[2],weight:700});});
+g+=T(640,118,'up to ~51% of the',{anchor:'middle',size:9.5,fill:C.green});g+=T(640,132,'Relationship dimension',{anchor:'middle',size:9.5,fill:C.green});
+g+=R(95,288,700,94,{stroke:C.gold,dash:'5 4',fill:'#f7f1e3'});
+g+=T(120,314,'Findings:',{size:12,weight:700,fill:C.navy});
+g+=T(210,314,'youth race \u2014 NOT a predictor.  Racial matching \u2014 NOT a predictor.',{size:11.5,fill:C.ink});
+g+=T(120,338,'Therapist CULTURAL UNDERSTANDING \u2014 a strong predictor across ALL five REACH dimensions,',{size:11.5,fill:C.ink});
+g+=T(120,358,'for all youths regardless of race. Feeling UNDERSTOOD (not sharing a race) drives engagement.',{size:11.5,fill:C.navy,weight:600});
+g+=T(120,378,'Practical aim: train cultural understanding (changeable) rather than rely on matching (hard, weak).',{size:10.5,fill:C.gold,style:'italic'});
+return svg(g);})(),
+bullets:[
+['1','<b>Racial/ethnic matching</b> = pairing client & therapist of the same race; theory says perceived similarity helps \u2014 but evidence is mixed.'],
+['2','<b>Cultural understanding</b> = the therapist\u2019s grasp of the client\u2019s values/worldview (part of cultural competence).'],
+['3','Findings: youth <b>race</b> did NOT predict engagement; <b>racial matching</b> did NOT either.'],
+['4','<b>Cultural understanding</b> strongly predicted engagement (\u03B7\u00B2_p \u2248 .36, up to ~51% of Relationship), for all youths.'],
+['5','Implication: invest in <b>training cultural understanding</b>, not just racial matching.']
+],
+hook:'To keep a teen in therapy, the therapist doesn\u2019t need to look like them \u2014 they need to \u2018get\u2019 them. Understanding beats matching.'});
+
+/* L14 — Alegria social position & three lessons */
+addLesson({num:14,topic:'Alegria 2020',title:'Engaging Minority Clients: Three Lessons',
+svg:(function(){var g='';
+g+=R(95,56,700,60,{stroke:C.line,fill:'#eef0ea'});
+g+=T(120,82,'Social position =',{size:12,weight:700,fill:C.navy});
+g+=T(255,82,'the ethnic/economic/political hierarchy client & clinician each occupy.',{size:11.5,fill:C.ink});
+g+=T(120,103,'A perceived GAP amplifies bias and blocks the clinician\u2019s perspective-taking \u2192 disengagement.',{size:11,fill:C.mut});
+var L=[['1. Overcome positional hierarchies','shared decision making; collaborative language; humility (\u201Cmaybe another way\u2026\u201D)'],
+['2. Center goals on the client','anchor in the client\u2019s own concerns & words; address the CHILD directly in paediatrics'],
+['3. Share identities both ways','explain who you are; invite the client to share (\u201Ctell me about your tattoos\u201D) \u2192 trust']];
+L.forEach(function(d,i){var y=132+i*86;g+=R(60,y,730,72,{stroke:i===0?C.gold:C.slate});g+=CIR(96,y+36,18,{stroke:C.gold});g+=T(96,y+42,String(i+1),{anchor:'middle',size:16,fill:C.gold,weight:700,font:'Cormorant Garamond, serif'});
+g+=T(128,y+30,d[0].replace(/^\d\. /,''),{size:12.5,fill:C.navy,weight:700});g+=T(128,y+52,d[1],{size:10.8,fill:C.mut});});
+g+=T(420,418,'Build the encounter as egalitarian COLLABORATION that empowers the client\u2019s voice.',{anchor:'middle',size:11,fill:C.gold,style:'italic'});
+return svg(g);})(),
+bullets:[
+['1','Ethnic minorities under-use and drop out of care \u2014 partly because clinicians aren\u2019t trained to bridge a gap in <b>social position</b>.'],
+['2','<b>Lesson 1</b>: overcome positional hierarchies via <b>shared decision making</b>, collaborative language and humility.'],
+['3','<b>Lesson 2</b>: <b>center goals on the client</b> \u2014 their concerns and words (address children directly).'],
+['4','<b>Lesson 3</b>: <b>share identities both ways</b> to build trust and avoid attribution errors.'],
+['5','Goal: an egalitarian <b>collaboration</b> that empowers the client\u2019s voice.']
+],
+hook:'Close the \u2018social position\u2019 gap: share power, follow the client\u2019s goals, and trade a little of who you are \u2014 a partnership, not a lecture.'});
+
+/* L15 — attitudinal vs structural + closing */
+addLesson({num:15,topic:'Alegria 2020',title:'Attitudinal vs. Structural Barriers',
+svg:(function(){var g='';
+g+=T(420,40,'Two walls block engagement \u2014 knock down BOTH',{anchor:'middle',size:13.5,fill:C.navy,weight:600,font:'Cormorant Garamond, serif'});
+g+=R(70,70,330,180,{stroke:C.red,fill:'#f5ece8'});
+g+=T(235,98,'ATTITUDINAL',{anchor:'middle',size:13,fill:C.red,weight:700});
+g+=T(235,118,'(in minds & attitudes)',{anchor:'middle',size:10.5,fill:C.mut});
+g+=T(110,148,'\u2022 stigma',{size:11.5,fill:C.ink});
+g+=T(110,176,'\u2022 bias and prejudice',{size:11.5,fill:C.ink});
+g+=T(110,204,'\u2022 racial/ethnic discrimination',{size:11.5,fill:C.ink});
+g+=R(440,70,330,180,{stroke:C.slate,fill:'#eef0f3'});
+g+=T(605,98,'STRUCTURAL',{anchor:'middle',size:13,fill:C.navy,weight:700});
+g+=T(605,118,'(in systems & resources)',{anchor:'middle',size:10.5,fill:C.mut});
+g+=T(480,148,'\u2022 linguistic / communication obstacles',{size:11.5,fill:C.ink});
+g+=T(480,176,'\u2022 limited availability of times',{size:11.5,fill:C.ink});
+g+=T(480,204,'\u2022 poor quality of services',{size:11.5,fill:C.ink});
+g+=R(95,278,700,140,{stroke:C.gold,dash:'5 4',fill:'#f7f1e3'});
+g+=T(120,304,'Levels interact:',{size:12,weight:700,fill:C.navy});
+g+=T(240,304,'individual (SES, literacy) \u00D7 organisational (policies) \u00D7 societal (norms).',{size:11.5,fill:C.ink});
+g+=T(120,330,'Clinicians can use the engagement strategies \u2014 but SYSTEMIC change is also needed:',{size:11.5,fill:C.ink});
+g+=T(140,352,'\u2022 build engagement into training & protocols',{size:11,fill:C.mut});
+g+=T(140,372,'\u2022 flexible delivery (phone, non-clinical settings)',{size:11,fill:C.mut});
+g+=T(140,392,'\u2022 integrate care management for social determinants of health',{size:11,fill:C.mut});
+return svg(g);})(),
+bullets:[
+['1','Barriers come in two kinds \u2014 and <b>both</b> must be addressed.'],
+['2','<b>Attitudinal</b> barriers live in minds: stigma, bias, prejudice, discrimination.'],
+['3','<b>Structural</b> barriers live in systems: language, limited appointment times, poor service quality.'],
+['4','Individual, organisational and societal levels <b>interact</b> to shape engagement.'],
+['5','Fixing the conversation isn\u2019t enough \u2014 need <b>systemic change</b> (training, flexible delivery, social determinants).']
+],
+hook:'You can be the warmest clinician alive and still lose the client to a closed clinic or a language gap \u2014 dismantle both the attitude wall and the system wall.'});
+
+/* ===================== FLASHCARDS ===================== */
+const cards=[
+{t:'Heine Ch.14',q:'Hikikomori',a:'A largely Japanese condition of <b>extreme social withdrawal</b> (\u2265 6 months, no school/job), most common in adolescent boys (~1% of Japanese).'},
+{t:'Heine Ch.14',q:'Why is hikikomori \u201Cculture-bound\u201D?',a:'Its causes are less present elsewhere, parents react differently, and its symptoms fit <b>no single DSM-5 category</b>.'},
+{t:'Heine Ch.14',q:'Defining a \u201Cdisorder\u201D',a:'Usually <b>rare + causes impairment</b> \u2014 but with many exceptions (frat-party drinking; Glenn Gould). The line is partly drawn by culture.'},
+{t:'Heine Ch.14',q:'Dhat syndrome',a:'South Asian young men\u2019s morbid anxiety about <b>losing semen</b> (a vital essence). Meaningless without the shared cultural belief.'},
+{t:'Heine Ch.14',q:'Culture-bound syndrome',a:'A symptom cluster shaped so strongly by <b>cultural meaning</b> that it occurs mainly (or only) in certain cultures (DSM-5: \u201Ccultural concept of distress\u201D).'},
+{t:'Heine Ch.14',q:'Koro',a:'A culture-bound syndrome (South/East Asia): morbid <b>fear the genitals are shrinking</b> into the body; can occur in epidemics.'},
+{t:'Heine Ch.14',q:'Ataques de nervios',a:'A Latino (esp. Puerto Rican) syndrome: convulsions, palpitations, outbursts after a <b>stressful family event</b> \u2014 a recognised way to express strong emotion.'},
+{t:'Heine Ch.14',q:'Amok',a:'A Southeast Asian syndrome: a sudden <b>outburst of uncontrolled violence</b> after brooding, ending in exhaustion/amnesia (\u201Crunning amok\u201D).'},
+{t:'Heine Ch.14',q:'Eating disorders & culture',a:'<b>Bulimia</b> = a clear culture-bound syndrome of modern Western-influenced cultures; <b>anorexia</b> is more mixed (possibly an existential universal).'},
+{t:'Heine Ch.14',q:'Somatization vs psychologization',a:'Expressing distress mainly through <b>physical symptoms</b> (somatization, common in China) vs <b>psychological ones</b> (psychologization, common in the West).'},
+{t:'Heine Ch.14',q:'Depression across cultures',a:'Universal (found in every culture studied) but far rarer in China; East Asians somatize, Westerners psychologize; depressed mood may not be core for Chinese.'},
+{t:'Heine Ch.14',q:'Taijin kyoufushou (TKS)',a:'A Japanese social-anxiety variant: fear of <b>offending/embarrassing OTHERS</b> (the \u201Caltruistic phobia\u201D), unlike Western fear of embarrassing oneself.'},
+{t:'Heine Ch.14',q:'Schizophrenia across cultures',a:'The most cross-culturally <b>similar</b> disorder (strong genetic basis), but subtypes vary (paranoid UK vs catatonic India) and the course is often <b>better</b> in less-industrial societies.'},
+{t:'Heine Ch.14',q:'Suicide across cultures',a:'Suicidal tendencies are universal, but <b>rates & motives vary enormously</b> (Japan\u2019s honour-linked seppuku; First Nations identity loss; low rates in many Muslim cultures).'},
+{t:'Heine Ch.14',q:'Treating mental illness cross-culturally',a:'Western \u201Ctalking therapy\u201D isn\u2019t culture-free; indigenous methods (Morita, Naikan, family/spiritual healing) abound; ethnic matching helps only modestly \u2014 <b>cultural competence</b> matters more.'},
+{t:'Heine Ch.14',q:'Watters\u2019 \u201CCrazy Like Us\u201D / symptom pool',a:'Exporting Western diagnostic categories can <b>spread</b> conditions (anorexia in Hong Kong, PTSD in Sri Lanka); each culture offers a \u201Csymptom pool.\u201D'},
+{t:'Helman 2007',q:'Benefits of migration',a:'Opportunity (education, healthcare), <b>remittances</b> (\u201Cmigrodollars\u201D), new ideas/freedom/autonomy, stronger family bonds, and safety for refugees.'},
+{t:'Helman 2007',q:'Health risks of migration',a:'Loss of identity/community; disrupted networks; more physical disease (diabetes, HIV, TB); and higher <b>mental illness, addiction, suicide</b> and family breakdown.'},
+{t:'Helman 2007',q:'Cultural bereavement',a:'A grief-like reaction to the <b>loss of homeland, people, customs and the \u2018assumptive world\u2019</b>; migration as a psychosocial transition.'},
+{t:'Helman 2007',q:'Factors affecting migrant mental health',a:'Pre-migration (class, trauma, resilience), the stressful process (language), and post-migration acculturation (discrimination, unemployment, status loss).'},
+{t:'Helman 2007',q:'Family role inversions',a:'<b>Generational</b> (kids interpret for parents), <b>gender-role</b> (women become breadwinners), and <b>space</b> (\u2018there\u2019 feels more real than \u2018here\u2019).'},
+{t:'Helman 2007',q:'Refugee health',a:'Worse than other migrants: no preparation, family separation, trauma/PTSD, plus physical problems (malnutrition, TB); long-term cultural bereavement.'},
+{t:'Helman 2007',q:'Selection vs stress hypothesis',a:'<b>Selection</b>: vulnerable people are more likely to migrate. <b>Stress</b>: migration itself precipitates illness. Usually <b>both</b> (plus resilience).'},
+{t:'Helman 2007',q:'Variation in rates across migrant groups',a:'Lower risk with education, portable skills, resources, contacts and a coherent worldview; higher morbidity can persist <b>2\u20133 generations</b>.'},
+{t:'Helman 2007',q:'Management of migrant mental health',a:'Culturally appropriate care; work with <b>traditional healers</b>; recognise \u2018mad vs bad\u2019 labelling skews stats; support migrants\u2019 own <b>self-help communities</b>.'},
+{t:'Jurado 2017',q:'Common mental disorders (CMD)',a:'Depression, generalised anxiety, panic disorder, OCD, PTSD and social anxiety (NICE). Multicausal.'},
+{t:'Jurado 2017',q:'Healthy-immigrant hypothesis',a:'Migrants are <b>initially healthier</b> than the host population (self-selection: only the healthier migrate). Mainly US/Canada data.'},
+{t:'Jurado 2017',q:'Migration-morbidity hypothesis',a:'Migration is a <b>stressor</b> that raises mental-disorder risk \u2192 migrants fare worse than natives. Mainly European/Israeli/Chinese/Australian data.'},
+{t:'Jurado 2017',q:'Are the two hypotheses exclusive?',a:'No \u2014 <b>both can be true</b> depending on context; you must consider the baseline CMD rate in the country of origin.'},
+{t:'Jurado 2017',q:'Individual CMD factors',a:'Risk: female, very young/old, unmarried, low education/SES, region of origin, low self-esteem. Protective: optimism, sense of control, resilience.'},
+{t:'Jurado 2017',q:'Migration-process CMD factors',a:'Risk: pre-migration trauma, forced/unplanned migration, low acculturation. Protective: voluntary planned migration, language proficiency, family reunification.'},
+{t:'Jurado 2017',q:'Host-environment CMD factors',a:'Risk: perceived <b>discrimination</b>, unemployment, poor work conditions. Protective: social support, familism, neighbourhood cohesion, employment.'},
+{t:'Chu 2023',q:'Treatment engagement (REACH)',a:'A multidimensional connection to care: <b>R</b>elationship, <b>E</b>xpectancy, <b>A</b>ttendance, <b>C</b>larity, <b>H</b>omework.'},
+{t:'Chu 2023',q:'Racial matching',a:'Pairing a client with a therapist of the <b>same race/ethnicity</b>; theorised to boost engagement via perceived similarity \u2014 but evidence is mixed.'},
+{t:'Chu 2023',q:'Cultural understanding',a:'The therapist\u2019s grasp of the client\u2019s <b>values, beliefs and worldview</b> (part of cultural competence) \u2014 the proximal, changeable process.'},
+{t:'Chu 2023',q:'Chu et al. main finding',a:'Youth race and racial matching did NOT predict engagement; <b>cultural understanding strongly did</b> (\u03B7\u00B2_p \u2248 .36, up to ~51% of Relationship), for all youths.'},
+{t:'Chu 2023',q:'Chu et al. implication',a:'Invest in <b>training cultural understanding</b> (mutable, powerful) rather than relying on racial matching (hard to deliver, weakly supported).'},
+{t:'Alegria 2020',q:'Social position',a:'The ethnic/economic/political <b>hierarchy</b> a client and clinician each occupy; a perceived gap amplifies bias and blocks perspective-taking.'},
+{t:'Alegria 2020',q:'Three lessons for engaging minority clients',a:'(1) Overcome positional hierarchies (shared decision making); (2) center goals on the client; (3) share identities both ways.'},
+{t:'Alegria 2020',q:'Shared decision making',a:'A collaborative dialogue \u2014 shared agenda, collaborative language, humility \u2014 that <b>rebalances power</b> between clinician and client.'},
+{t:'Alegria 2020',q:'Attitudinal vs structural barriers',a:'<b>Attitudinal</b> = stigma, bias, discrimination (in minds). <b>Structural</b> = language, limited times, poor service quality (in systems). Address BOTH.'},
+{t:'Alegria 2020',q:'Alegria closing message',a:'Build the clinical encounter as <b>egalitarian collaboration</b> that empowers the client\u2019s voice \u2014 paired with systemic change.'}
+];
+
+/* ===================== MCQ ===================== */
+const mcqs=[
+{q:'Hikikomori, the condition Keisuke suffers from, is best described as \u2026',o:['a fear of shrinking genitals','extreme, prolonged social withdrawal','a sudden violent outburst','an eating disorder'],c:1,e:'Hikikomori (\u201Cpull inward\u201D) is voluntary social withdrawal for at least six months, most common in adolescent Japanese boys.'},
+{q:'A culture-bound syndrome is one that \u2026',o:['occurs at equal rates everywhere','is shaped so strongly by cultural meaning that it occurs mainly in certain cultures','is purely genetic','only affects refugees'],c:1,e:'Culture-bound syndromes (DSM-5: \u201Ccultural concepts of distress\u201D) depend on cultural meaning \u2014 e.g. koro, dhat, ataques de nervios.'},
+{q:'Compared with Western patients, Chinese patients with depression more often show \u2026',o:['psychologization (mood symptoms)','somatization (physical symptoms)','no symptoms at all','manic episodes'],c:1,e:'East Asians tend to somatize (e.g. fatigue, headaches \u2014 cf. Kleinman\u2019s neurasthenia patients), while Westerners psychologize (depressed mood, guilt).'},
+{q:'Japan\u2019s taijin kyoufushou differs from Western social anxiety because the sufferer mainly fears \u2026',o:['embarrassing themselves','offending or embarrassing OTHERS','open spaces','contamination'],c:1,e:'TKS is the \u201Caltruistic phobia\u201D \u2014 fear of making others uncomfortable \u2014 reflecting an interdependent, other-focused orientation.'},
+{q:'Which disorder is described as the MOST cross-culturally similar (with a strong biological basis)?',o:['bulimia','hikikomori','schizophrenia','dhat'],c:2,e:'Schizophrenia appears at similar rates worldwide; still, its subtypes (paranoid vs catatonic) and course vary, and the course is often better in less-industrial societies.'},
+{q:'In multicultural therapy, Heine concludes that simply MATCHING therapist and client by culture \u2026',o:['is the single most important factor','has only modest benefits \u2014 cultural competence matters more','is harmful','guarantees a cure'],c:1,e:'The benefits of cultural matching are modest; what matters more is cultural competence (self-awareness, knowledge of the client\u2019s culture, sensitive skill).'},
+{q:'Helman describes migration as a \u201Cpsychosocial transition\u201D most akin to \u2026',o:['a holiday','bereavement','retirement','graduation'],c:1,e:'Migration involves loss of the familiar \u201Cassumptive world\u201D \u2014 hence cultural bereavement, a grief-like reaction.'},
+{q:'When a migrant child must interpret for their parents, reversing normal authority, Helman calls this a \u2026',o:['gender-role inversion','space inversion','generational inversion','selection effect'],c:2,e:'Generational inversion: children master the new language/culture faster, gaining power over parents who depend on them.'},
+{q:'Helman\u2019s \u201Cselection\u201D hypothesis of migrant mental illness proposes that \u2026',o:['migration itself causes all illness','certain (more vulnerable) people are more likely to migrate in the first place','only refugees get ill','illness is purely genetic'],c:1,e:'Selection: vulnerable/restless people self-select into migration (some have prior illness). The stress hypothesis is the complement; usually both operate.'},
+{q:'The \u201Chealthy-immigrant hypothesis\u201D holds that migrants \u2026',o:['have worse mental health than natives','are initially HEALTHIER than the host population (self-selection)','never develop mental illness','are all refugees'],c:1,e:'Healthier, better-resourced people are more able to migrate, so migrants can start out healthier \u2014 supported mainly by US/Canada data.'},
+{q:'According to Jurado et al., the healthy-immigrant and migration-morbidity hypotheses are \u2026',o:['mutually exclusive','not mutually exclusive \u2014 both can hold depending on context','identical','both false'],c:1,e:'Both can be true; which holds depends on who migrates, from where, to where, and for how long \u2014 so the country-of-origin baseline matters.'},
+{q:'Across Jurado\u2019s three factor domains, which is a HOST-ENVIRONMENT risk factor for CMD?',o:['optimism','perceived discrimination','family reunification','language proficiency'],c:1,e:'Perceived discrimination (with unemployment and poor work conditions) is a host-environment risk; social support and cohesion are protective.'},
+{q:'In Chu et al. (2023), which variable strongly predicted youth treatment engagement?',o:['youth race','youth\u2013therapist racial matching','therapist cultural understanding','therapist age'],c:2,e:'Neither race nor racial matching predicted engagement; therapist cultural understanding did (\u03B7\u00B2_p \u2248 .36), for all youths regardless of race.'},
+{q:'The REACH framework measures treatment engagement as \u2026',o:['Relationship, Expectancy, Attendance, Clarity, Homework','a single attendance count','medication adherence only','therapist credentials'],c:0,e:'REACH captures social, cognitive and behavioural engagement: Relationship, Expectancy, Attendance, Clarity, Homework.'},
+{q:'Chu et al.\u2019s practical implication is that services should \u2026',o:['only hire therapists who racially match clients','train therapists\u2019 cultural understanding','stop measuring engagement','ignore culture entirely'],c:1,e:'Because cultural understanding (not matching) drives engagement, the actionable target is training a culturally humble, understanding orientation.'},
+{q:'Alegria et al. use \u201Csocial position\u201D to mean \u2026',o:['a seating arrangement','the ethnic/economic/political hierarchy client and clinician each occupy','a diagnosis','a type of therapy'],c:1,e:'A perceived gap in social position can amplify bias and reduce the clinician\u2019s perspective-taking, harming engagement.'},
+{q:'Which is a STRUCTURAL (not attitudinal) barrier to engagement in Alegria et al.?',o:['stigma','prejudice','limited availability of appointment times','discrimination'],c:2,e:'Structural barriers live in systems/resources (language, appointment times, service quality); stigma, bias and discrimination are attitudinal. Both must be addressed.'},
+{q:'A shared theme across Chu (2023) and Alegria (2020) is that engaging minority clients depends most on \u2026',o:['matching demographics','cultural understanding and an egalitarian, collaborative relationship','longer sessions','more medication'],c:1,e:'Both converge: what helps is feeling understood and sharing power \u2014 cultural understanding and collaboration \u2014 more than mere demographic matching.'}
+];
+
+/* ===================== APP LOGIC ===================== */
+var state={lesson:0,filter:'All',cardOrder:cards.map(function(_,i){return i;}),score:0,answered:0};
+document.querySelectorAll('#nav button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.view);});});
+function show(v){
+  document.querySelectorAll('#nav button').forEach(function(b){b.classList.toggle('active',b.dataset.view===v);});
+  document.querySelectorAll('.view').forEach(function(s){s.classList.toggle('active',s.id===v);});
+  document.querySelector('.main').scrollTop=0;
+}
+function renderOverview(){
+  var groups=['Heine Ch.14','Helman 2007','Jurado 2017','Chu 2023','Alegria 2020'];
+  var labels={'Heine Ch.14':'Heine Ch.14 \u2014 Mental Health Across Cultures','Helman 2007':'Helman (2007) \u2014 The Health Risks of Migration','Jurado 2017':'Jurado et al. (2017) \u2014 Common Mental Disorders in Migrants','Chu 2023':'Chu et al. (2023) \u2014 Racial Matching vs Cultural Understanding','Alegria 2020':'Alegria et al. (2020) \u2014 Engaging Ethnic Minorities'};
+  var h='<div class="eyebrow">Theme 5 \u00B7 Mental Health Challenges Across Cultures</div>'+
+    '<h1 class="title">Culture, Mind & Healing</h1>'+
+    '<p class="lead">Fifteen whiteboard-style lessons across five readings \u2014 from culture-bound syndromes to migrant mental health and engaging minority clients. Click any card to open its diagram.</p><hr class="rule">';
+  groups.forEach(function(gp){
+    h+='<div class="sec-label">'+labels[gp]+'</div><div class="grid">';
+    lessons.forEach(function(L,i){ if(L.topic!==gp) return;
+      h+='<div class="ocard" data-i="'+i+'"><span class="chip">'+L.topic+'</span>'+
+         '<div class="nimg">'+L.svg+'</div><div class="nnum">Lesson '+L.num+'</div>'+
+         '<h3>'+L.title+'</h3><p>'+L.bullets[0][1].replace(/<[^>]+>/g,'')+'</p></div>';
+    });
+    h+='</div>';
+  });
+  document.getElementById('overview').innerHTML=h;
+  document.querySelectorAll('.ocard').forEach(function(c){c.addEventListener('click',function(){state.lesson=+c.dataset.i;renderLesson();show('lessons');});});
+}
+function renderLesson(){
+  var L=lessons[state.lesson];
+  var chips='<div class="chips">'+lessons.map(function(x,i){return '<button class="lchip'+(i===state.lesson?' active':'')+'" data-i="'+i+'">'+x.num+'. '+x.title+'</button>';}).join('')+'</div>';
+  var bl=L.bullets.map(function(b){return '<li><span class="dot">'+b[0]+'</span><span>'+b[1]+'</span></li>';}).join('');
+  var h='<div class="eyebrow">'+L.topic+'</div>'+
+    '<div class="lesson-top"><div><h1 class="title" style="font-size:33px">'+L.title+'</h1><div class="lesson-counter">Lesson '+L.num+' of '+lessons.length+'</div></div>'+
+    '<div class="navbtns"><button id="prevL"'+(state.lesson===0?' disabled':'')+'>\u2190 Prev</button><button id="nextL"'+(state.lesson===lessons.length-1?' disabled':'')+'>Next \u2192</button></div></div>'+
+    chips+
+    '<div class="stage"><div class="diagram-wrap"><div class="dtitle">\u270E Whiteboard</div>'+L.svg+'</div>'+
+    '<div class="side"><div class="bullets"><h4>Key points</h4><ul>'+bl+'</ul></div>'+
+    '<div class="hook"><div class="ht">\u2726 Memory hook</div><p>'+L.hook+'</p></div></div></div>';
+  document.getElementById('lessons').innerHTML=h;
+  var p=document.getElementById('prevL'),n=document.getElementById('nextL');
+  if(p)p.onclick=function(){if(state.lesson>0){state.lesson--;renderLesson();}};
+  if(n)n.onclick=function(){if(state.lesson<lessons.length-1){state.lesson++;renderLesson();}};
+  document.querySelectorAll('.lchip').forEach(function(c){c.addEventListener('click',function(){state.lesson=+c.dataset.i;renderLesson();});});
+  var active=document.querySelector('.lchip.active'); if(active&&active.scrollIntoView)active.scrollIntoView({inline:'center',block:'nearest'});
+}
+function renderFlash(){
+  var topics=['All','Heine Ch.14','Helman 2007','Jurado 2017','Chu 2023','Alegria 2020'];
+  var shown=state.cardOrder.filter(function(i){return state.filter==='All'||cards[i].t===state.filter;});
+  var h='<div class="eyebrow">Active recall</div><h1 class="title">Flashcards</h1>'+
+    '<p class="lead">Click a card to flip. Filter by source, shuffle for a fresh order, or reset.</p><hr class="rule">'+
+    '<div class="fc-bar"><div class="filters">'+topics.map(function(t){return '<button class="'+(state.filter===t?'active':'')+'" data-f="'+t+'">'+t+'</button>';}).join('')+
+    '</div><div class="tools"><button id="shuf">\u21BB Shuffle</button><button id="reset" class="ghost">Reset</button></div></div>'+
+    '<div class="fc-count">'+shown.length+' cards</div><div class="fc-grid">'+
+    shown.map(function(i){var c=cards[i];return '<div class="flip" data-id="'+i+'"><div class="flip-in">'+
+      '<div class="face front"><div class="ftag">'+c.t+'</div><div class="q">'+c.q+'</div><div class="hint">tap to flip</div></div>'+
+      '<div class="face back"><div class="ftag">Answer</div><div class="a">'+c.a+'</div></div></div></div>';}).join('')+'</div>';
+  document.getElementById('flashcards').innerHTML=h;
+  document.querySelectorAll('.flip').forEach(function(f){f.addEventListener('click',function(){f.classList.toggle('flipped');});});
+  document.querySelectorAll('.fc-bar .filters button').forEach(function(b){b.addEventListener('click',function(){state.filter=b.dataset.f;renderFlash();});});
+  document.getElementById('shuf').onclick=function(){for(var a=state.cardOrder,k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var tmp=a[k];a[k]=a[j];a[j]=tmp;}renderFlash();};
+  document.getElementById('reset').onclick=function(){state.cardOrder=cards.map(function(_,i){return i;});state.filter='All';renderFlash();};
+}
+function renderMCQ(){
+  var h='<div class="eyebrow">Exam practice</div><h1 class="title">Multiple-Choice Questions</h1>'+
+    '<p class="lead">Pick an answer for instant feedback and an explanation. '+mcqs.length+' exam-style items.</p><hr class="rule">'+
+    '<div class="mcq-head"><div class="score">Score <b id="sc">0</b> / '+mcqs.length+'</div><div class="tools"><button id="mreset">Reset quiz</button></div></div>';
+  mcqs.forEach(function(m,qi){
+    h+='<div class="q-card" data-q="'+qi+'"><div class="qh"><span class="qn">'+(qi+1)+'</span><span class="qt">'+m.q+'</span></div><div class="opts">';
+    m.o.forEach(function(opt,oi){h+='<div class="opt" data-o="'+oi+'"><span class="ol">'+String.fromCharCode(65+oi)+'</span><span>'+opt+'</span></div>';});
+    h+='</div><div class="explain"><span class="verdict"></span> <span class="etext">'+m.e+'</span></div></div>';
+  });
+  document.getElementById('mcq').innerHTML=h;
+  state.score=0;state.answered=0;
+  document.querySelectorAll('.q-card').forEach(function(card){
+    var qi=+card.dataset.q,done=false;
+    card.querySelectorAll('.opt').forEach(function(opt){
+      opt.addEventListener('click',function(){
+        if(done)return;done=true;
+        var oi=+opt.dataset.o,correct=mcqs[qi].c;
+        card.querySelectorAll('.opt').forEach(function(o){o.classList.add('locked');var k=+o.dataset.o;if(k===correct)o.classList.add('correct');});
+        var ex=card.querySelector('.explain'),vd=card.querySelector('.verdict');
+        if(oi===correct){state.score++;vd.textContent='Correct.';vd.className='verdict ok';}
+        else{opt.classList.add('wrong');vd.textContent='Not quite.';vd.className='verdict no';}
+        ex.classList.add('show');document.getElementById('sc').textContent=state.score;
+      });
+    });
+  });
+  document.getElementById('mreset').onclick=function(){renderMCQ();};
+}
+renderOverview();renderLesson();renderFlash();renderMCQ();
+</script>
